@@ -88,7 +88,7 @@ export default function Home() {
             <div className="addr-card">
               <h3 style={{ fontSize: 19 }}>Find your way around</h3>
               <p style={{ color: 'var(--ink-soft)', fontSize: 14.5, marginTop: 8, marginBottom: 14 }}>
-                Doctors, services, billing and directions — each just one click away.
+                Doctors, services, billing and directions — just a click away.
               </p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <Link className="btn btn-outline" to="/doctors">Our doctors</Link>
