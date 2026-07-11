@@ -75,7 +75,7 @@ export default function Layout() {
                 <img src="/assets/logo-icon.png" alt="Parramatta Medical and Dental Centre logo" />
               </div>
               <p style={{ maxWidth: '36ch', color: 'rgba(255,255,255,0.6)' }}>
-                Long-term, non-discriminatory care for patients of all ages — informed decisions
+                Long-term, non-discriminatory care for patients of all ages. Informed decisions
                 start with clear communication.
               </p>
             </div>
