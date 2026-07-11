@@ -65,7 +65,7 @@ export default function Services() {
           <div className="section-head">
             <div>
               <p className="eyebrow">Not sure which service fits?</p>
-              <h2>See a doctor first — they&apos;ll refer you within the building.</h2>
+              <h2>See a doctor first and they&apos;ll refer you within the building.</h2>
             </div>
             <p>Since allied health and pathology are onsite, most referrals mean walking down the hall, not a second appointment elsewhere.</p>
           </div>
