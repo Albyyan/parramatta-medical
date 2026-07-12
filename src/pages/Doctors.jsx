@@ -16,7 +16,7 @@ export default function Doctors() {
         <div className="wrap">
           <p className="breadcrumb"><Link to="/">Home</Link> / <span>Our doctors</span></p>
           <h1>Our team of GPs, here to help.</h1>
-          <p>Filter by what you actually need help with — the tags come straight from each doctor&apos;s own areas of expertise.</p>
+          <p>Filter by what you actually need help with. The tags come straight from each doctor&apos;s own areas of expertise.</p>
         </div>
       </div>
 
