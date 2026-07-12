@@ -2,6 +2,19 @@ import { Link } from 'react-router-dom'
 import { HOTDOC_URL, PHONE_DISPLAY, PHONE_HREF, hours } from '../data/site.js'
 
 export default function Home() {
+  const MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=Shop+1,+144+Marsden+Street,+Parramatta+NSW";
+
+  function openLocationInMaps() {
+    window.open(MAPS_URL, "_blank", "noopener,noreferrer");
+  }
+
+  function handlePhotoKeyDown(e) {
+    if (e.key === "Enter" || e.key === " ") {
+      openLocationInMaps();
+    }
+  }
+
   return (
     <>
       <section className="hero">
@@ -14,8 +27,7 @@ export default function Home() {
               under one roof.
             </h1>
             <p className="lede">
-              GPs, dentists, allied health and onsite pathology in the one Marsden Street
-              practice — with six languages spoken across our reception and doctors.
+              GPs, dentists, allied health, and onsite pathology all in one place, with six languages spoken across our reception and doctors.
             </p>
             <div className="hero-actions">
               <a className="btn" href={HOTDOC_URL} target="_blank" rel="noopener noreferrer">
@@ -24,7 +36,13 @@ export default function Home() {
               <Link className="btn btn-outline" to="/doctors">Find a doctor</Link>
             </div>
           </div>
-          <div className="hero-photo">
+          <div
+            className="hero-photo"
+            role="button"
+            tabIndex={0}
+            onClick={openLocationInMaps}
+            onKeyDown={handlePhotoKeyDown}
+          >
             <img src="/assets/interior-reception.jpg" alt="Reception desk at Parramatta Medical and Dental Centre" />
             <div className="cap">SHOP 1, 144 MARSDEN STREET — RECEPTION</div>
           </div>
@@ -70,7 +88,7 @@ export default function Home() {
             <div className="addr-card">
               <h3 style={{ fontSize: 19 }}>Find your way around</h3>
               <p style={{ color: 'var(--ink-soft)', fontSize: 14.5, marginTop: 8, marginBottom: 14 }}>
-                Doctors, services, billing and directions — each just one click away.
+                Doctors, services, billing and directions — just a click away.
               </p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <Link className="btn btn-outline" to="/doctors">Our doctors</Link>

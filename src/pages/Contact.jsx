@@ -35,7 +35,7 @@ export default function Contact() {
         <div className="wrap loc-grid">
           <div>
             <p className="eyebrow">Find us</p>
-            <h2 style={{ marginTop: 10, fontSize: 'clamp(26px,3vw,34px)' }}>Hours &amp; parking</h2>
+            <h2 style={{ marginTop: 10, fontSize: 'clamp(26px,3vw,34px)' }}>Opening Hours</h2>
             <table className="hours-table">
               <tbody>
                 <tr className="today"><td>Monday</td><td>9:00am – 5:00pm</td></tr>
@@ -47,6 +47,7 @@ export default function Contact() {
                 <tr><td>Sunday</td><td>Closed</td></tr>
               </tbody>
             </table>
+            <h2 style={{ marginTop: 10, fontSize: 'clamp(26px,3vw,34px)' }}>Parking</h2>
             <ul className="park-list">
               <li><span className="mono">01</span> George Street public parking — 100m away</li>
               <li><span className="mono">02</span> Parramatta Park — up to 2hrs free, ~300m away</li>
@@ -73,7 +74,7 @@ export default function Contact() {
               <p className="eyebrow">Send an enquiry</p>
               <h2>Prefer to write instead of call?</h2>
             </div>
-            <p>This form doesn&apos;t book an appointment on its own — reception will call or email you back to confirm a time.</p>
+            <p>This form doesn&apos;t book an appointment on its own. Reception will call or email you back to confirm a time.</p>
           </div>
           <div className="contact-grid">
             {submitted ? (

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const faqs = [
   {
     q: 'Are you bulk billing or private billing?',
-    a: "We're a mixed billing practice. Some appointments are bulk billed — including every Wednesday and Saturday with Dr Baddam — and others are privately billed depending on the doctor, the day and the complexity of the visit.",
+    a: "We're a mixed billing practice. Some appointments are bulk billed, including every Wednesday and Saturday with Dr Baddam, and others are privately billed depending on the doctor, the day and the complexity of the visit.",
   },
   {
     q: 'Who qualifies for bulk billing outside those days?',
@@ -11,15 +11,15 @@ const faqs = [
   },
   {
     q: 'Can I claim a Medicare rebate for a phone consultation?',
-    a: "Yes, provided you've seen a practitioner at this practice in person within the past 12 months. Without that recent visit, the rebate doesn't apply.",
+    a: "Yes, provided you've seen one of our practitioners in person within the past 12 months. Without a recent visit, the rebate doesn't apply.",
   },
   {
     q: 'Do I need to pay upfront for private health extras?',
-    a: 'No — we use HICAPS for on-the-spot claiming, so you only pay the gap between our fee and your fund\u2019s rebate, not the full amount.',
+    a: 'No. We use HICAPS for on-the-spot claiming, so you only pay the gap between our fee and your fund\u2019s rebate, not the full amount.',
   },
   {
-    q: "What if I'm not sure which billing applies to me?",
-    a: 'Call reception on (02) 8320 9300 before you book — they can check your card, your fund, and the specific appointment type and tell you the likely cost.',
+    q: "Still unsure about which billing applies to you?",
+    a: 'Call reception on (02) 8320 9300 before you book. They can check your card, your fund, and the specific appointment type and tell you the likely cost.',
   },
 ]
 
@@ -29,8 +29,8 @@ export default function Billing() {
       <div className="page-hero">
         <div className="wrap">
           <p className="breadcrumb"><Link to="/">Home</Link> / <span>Billing</span></p>
-          <h1>Mixed billing, explained plainly.</h1>
-          <p>Fees vary with complexity — call reception for a quote before you book if you&apos;d like one.</p>
+          <h1>How mixed billing works.</h1>
+          <p>Fees vary with complexity. Call reception for a quote before you book.</p>
         </div>
       </div>
 
