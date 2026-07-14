@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { NavLink, Link, Outlet } from 'react-router-dom'
-import { HOTDOC_URL } from '../data/site.js'
+import { useEffect, useState } from 'react'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { HOTDOC_URL, PHONE_DISPLAY, PHONE_HREF } from '../data/site.js'
 
-const navItems = [
+const NAV_LINKS = [
+  { to: '/', label: 'Home', end: true },
   { to: '/doctors', label: 'Our doctors' },
   { to: '/services', label: 'Services' },
   { to: '/billing', label: 'Billing' },
@@ -11,104 +12,144 @@ const navItems = [
 
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+
+  // Close the mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
+
+  // Lock body scroll while the mobile menu is open, and allow Esc to close it
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    if (!menuOpen) return
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [menuOpen])
 
   return (
     <>
       <header>
         <div className="wrap nav">
-          <Link className="brand" to="/" onClick={() => setMenuOpen(false)}>
+          <NavLink className="brand" to="/">
             <img src="/assets/logo-icon.png" alt="Parramatta Medical and Dental Centre logo" />
-            <div className="brand-name">
-              <span className="top">PARRAMATTA</span>
-              <span className="bot">Medical and Dental Centre</span>
-            </div>
-          </Link>
+            <span className="brand-name">
+              <span className="top">Parramatta Medical</span>
+              <span className="bot">&amp; Dental Centre</span>
+            </span>
+          </NavLink>
 
-          <nav
-            className="links"
-            style={
-              menuOpen
-                ? {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    position: 'absolute',
-                    top: '100%',
-                    left: 0,
-                    right: 0,
-                    background: 'var(--paper)',
-                    padding: '20px 28px',
-                    borderBottom: '1px solid var(--line)',
-                  }
-                : undefined
-            }
-          >
-            {navItems.map((item) => (
+          <nav className="links" aria-label="Primary">
+            {NAV_LINKS.map((link) => (
               <NavLink
-                key={item.to}
-                to={item.to}
-                onClick={() => setMenuOpen(false)}
+                key={link.to}
+                to={link.to}
+                end={link.end}
                 className={({ isActive }) => (isActive ? 'active' : undefined)}
               >
-                {item.label}
+                {link.label}
               </NavLink>
             ))}
           </nav>
 
-          <a className="btn" href="tel:0283209300">Call 8320 9300</a>
+          <a className="btn nav-cta" href={HOTDOC_URL} target="_blank" rel="noopener noreferrer">
+            Book on HotDoc
+          </a>
+
           <button
-            className="menu-toggle"
-            aria-label="Toggle menu"
+            className={`menu-toggle${menuOpen ? ' is-open' : ''}`}
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setMenuOpen((open) => !open)}
           >
-            MENU
+            <span className="hamburger" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
           </button>
         </div>
       </header>
 
-      <Outlet />
+      <div
+        className={`mobile-menu-scrim${menuOpen ? ' is-open' : ''}`}
+        onClick={() => setMenuOpen(false)}
+        aria-hidden="true"
+      />
+
+      <nav
+        id="mobile-menu"
+        className={`mobile-menu${menuOpen ? ' is-open' : ''}`}
+        aria-label="Mobile"
+        aria-hidden={!menuOpen}
+      >
+        <ul className="mobile-menu-links">
+          {NAV_LINKS.map((link, i) => (
+            <li key={link.to} style={{ transitionDelay: `${i * 35}ms` }}>
+              <NavLink
+                to={link.to}
+                end={link.end}
+                className={({ isActive }) => (isActive ? 'active' : undefined)}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="mono idx">{String(i + 1).padStart(2, '0')}</span>
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mobile-menu-foot">
+          <a className="btn" href={HOTDOC_URL} target="_blank" rel="noopener noreferrer">
+            Book on HotDoc
+          </a>
+          <a className="btn btn-outline" href={PHONE_HREF}>
+            {PHONE_DISPLAY}
+          </a>
+        </div>
+      </nav>
+
+      <main>
+        <Outlet />
+      </main>
 
       <footer>
-        <div className="wrap">
-          <div className="foot-grid">
-            <div>
-              <div className="brand" style={{ textDecoration: 'none', marginBottom: 14 }}>
-                <img src="/assets/logo-icon.png" alt="Parramatta Medical and Dental Centre logo" />
-              </div>
-              <p style={{ maxWidth: '36ch', color: 'rgba(255,255,255,0.6)' }}>
-                Long-term, non-discriminatory care for patients of all ages. Informed decisions
-                start with clear communication.
-              </p>
-            </div>
-            <div>
-              <h4>Quick links</h4>
-              <Link to="/doctors">Our doctors</Link>
-              <Link to="/services">Services</Link>
-              <Link to="/billing">Billing</Link>
-              <Link to="/contact">Contact</Link>
-            </div>
-            <div>
-              <h4>Contact</h4>
-              <a href="tel:0283209300">(02) 8320 9300</a>
-              <a href="https://www.parramattamedical.com.au" target="_blank" rel="noopener noreferrer">
-                www.parramattamedical.com.au
-              </a>
-              <p style={{ color: 'rgba(255,255,255,0.6)' }}>
-                Shop 1, 144 Marsden Street, Parramatta NSW 2150
-              </p>
-            </div>
-            <div>
-              <h4>Accreditation</h4>
-              <p style={{ color: 'rgba(255,255,255,0.6)' }}>
-                Australian General Practice Accreditation Limited
-              </p>
-            </div>
+        <div className="wrap foot-grid">
+          <div>
+            <NavLink className="brand" to="/">
+              <img src="/assets/logo-icon.png" alt="Parramatta Medical and Dental Centre logo" />
+            </NavLink>
+            <p style={{ marginTop: 14, maxWidth: '34ch' }}>
+              Family medical &amp; dental, allied health and onsite pathology, all under one roof
+              on Marsden Street, Parramatta.
+            </p>
           </div>
-          <div className="foot-bottom">
-            <span>© 2026 Parramatta Medical and Dental Centre</span>
-            <a href={HOTDOC_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              Bookings via HotDoc
-            </a>
+          <div>
+            <h4>Practice</h4>
+            <NavLink to="/doctors">Our doctors</NavLink>
+            <NavLink to="/services">Services</NavLink>
+            <NavLink to="/billing">Billing</NavLink>
           </div>
+          <div>
+            <h4>Visit</h4>
+            <NavLink to="/contact">Contact &amp; location</NavLink>
+            <a href={HOTDOC_URL} target="_blank" rel="noopener noreferrer">Book on HotDoc</a>
+            <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>
+          </div>
+          <div>
+            <h4>Find us</h4>
+            <p>Shop 1, 144 Marsden Street</p>
+            <p>Parramatta, NSW 2150</p>
+          </div>
+        </div>
+        <div className="wrap foot-bottom">
+          <span>© {new Date().getFullYear()} Parramatta Medical &amp; Dental Centre</span>
+          <span>Shop 1, 144 Marsden Street, Parramatta NSW 2150</span>
         </div>
       </footer>
     </>
